@@ -18,6 +18,10 @@ const drawBall = () => {
   ctx.closePath()
 }
 
+const playGameSound = ()=>{
+  const gameSound = document.getElementById('gameSound');
+  gameSound.play()
+}
 const bounceBall = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBall();
@@ -33,11 +37,14 @@ const bounceBall = () => {
   y += dy
 }
 
+
+
 const gameTimer = () => {
    setInterval(bounceBall, 10)
 }
 
 document.getElementById('startButton').addEventListener('click', function () {
   gameTimer()
+  playGameSound()
   this.disabled = true
 })
