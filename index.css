@@ -1,0 +1,17 @@
+*{
+ padding: 0;
+ margin: 0;
+  
+}
+
+.main{
+  background-color: rgb(234, 232, 232);
+  margin: 0 auto;
+  display: block;
+  
+}
+
+#startButton{
+  display: block;
+  margin: 0 auto;  
+}
