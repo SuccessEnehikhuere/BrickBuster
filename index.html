@@ -6,11 +6,22 @@
   <link rel="stylesheet" href="index.css" >
 </head>
 <body>
-  <canvas id="canvas" width="480" height="320" class="main"></canvas>
-  <audio id='gameSound' src="/audio/262767__b_lamerichs__short-loops-31-01-2015-c-5.mp3">
-    Your browser does not support the audio element.
-  </audio>
-  <button id="startButton">start Game</button>
+  <section class="gameField">
+    <canvas id="canvas" width="480" height="320" class="main"></canvas>
+    
+    <button id="startButton">start Game</button>
+
+
+    <audio id='gameSound' src="/audio/262767__b_lamerichs__short-loops-31-01-2015-c-5.mp3">
+      Your browser does not support the audio element.
+    </audio>
+    <div class="modal hide-modal">
+      <button class="close-modal">close</button>
+    </div>
+
+
+  </section>
+
 
 
   <script src="script.js"></script>
