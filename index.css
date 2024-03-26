@@ -8,11 +8,30 @@
   background-color:#121212;
   margin: 0 auto;
   display: block;
-  
 }
 
 #startButton{
   display: block;
   margin: 0 auto;  
   margin-top: 2px;
+}
+
+
+.modal{
+  background-color: aliceblue;
+  height: 400px;
+  width: 100%;
+  position: absolute;
+  top:0;
+}
+
+.hide-modal {
+  display: none;
+}
+
+.gameField{
+  position: relative;
+  background-color: rgb(181, 137, 181);
+  height: 100%;
+  width:100%;  
 }
