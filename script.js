@@ -19,20 +19,20 @@ let controllerY = canvas.height - controllerHeight
 let leftPressed = false
 let rightPressed = false
 
-let gameInterval
+let gameInterval;
 
 //variables for the blocks
-let blockHeight = 22
+let blockHeight = 20
 let blockWidth = 72
 let blockPadding = 10
-let blockTopOffset = 5
+let blockTopOffset = 20
 let blockLeftOffset = 20
 const blockColumn = 5
 const blockRow = 3
 
 //this variable stores the creation of the 2d blocks using the array.from method
 const blocks = Array.from({ length: blockColumn }, () =>
-  Array.from({ length: blockRow }, () => ({ x: 0, y: 0 }))
+  Array.from({ length: blockRow }, () => ({ x: 0, y: 0, status:1 }))
 )
 
 document.addEventListener('keydown', keyDownHandler, false)
@@ -74,22 +74,28 @@ function gameController() {
 }
 
 function createBlocks() {
+  //calculates the total width required for all columns of blocks, removing the padding after the last block
   const totalBlocksWidth =
     blockColumn * (blockWidth + blockPadding) - blockPadding
  
-
+  //the offsetX is calculated by subtracting the canvas width from the totalblockswidth, and that gives the remaining space after the blocks have been placed. diving by 2 places the block in the center horizontally
     const offsetX = (canvas.width - totalBlocksWidth) / 2
-    const offsetY = blockTopOffset
+
+  //this positions the blocks from the top to the bottom. if blockTopOffset is set to 0, the blocks starts directly from the top
+    const offsetY = blockTopOffset;
 
   blocks.forEach((column, c) => {
     column.forEach((block, r) => {
-      const blockX = offsetX + c * (blockWidth + blockPadding) 
-      const blockY = offsetY + r * (blockHeight + blockPadding) + blockTopOffset
-      ctx.beginPath()
-      ctx.rect(blockX, blockY, blockWidth, blockHeight)
-      ctx.fillStyle = '#0ff'
-      ctx.fill()
-      ctx.closePath()
+       console.log('Block status:', block.status)
+      if (block.status === 1){
+        const blockX = offsetX + c * (blockWidth + blockPadding) 
+        const blockY = offsetY + r * (blockHeight + blockPadding) + blockTopOffset
+        ctx.beginPath()
+        ctx.rect(blockX, blockY, blockWidth, blockHeight)
+        ctx.fillStyle = '#0ff'
+        ctx.fill()
+        ctx.closePath()
+      }
     })
   })
 }
@@ -99,6 +105,7 @@ function bounceBall() {
   drawBall()
   gameController()
   createBlocks()
+  ballBlocksDetection()
 
   if (x + dx > canvas.width - radius || x + dx < radius) {
     dx = -dx
@@ -149,3 +156,25 @@ if (startButton) {
 
 gameController()
 createBlocks()
+
+
+
+function ballBlocksDetection() {
+  const totalBlocksWidth = blockColumn * (blockWidth + blockPadding) - blockPadding;
+  const offsetX = (canvas.width - totalBlocksWidth) / 2;
+   const offsetY = blockTopOffset
+  
+  blocks.forEach((column, c) => {
+    column.forEach((block, r) => {
+      const blockX = offsetX + c * (blockWidth + blockPadding);
+      const blockY = offsetY + r * (blockHeight + blockPadding)
+      
+      // Checking for collision with each block
+      if (block.status ===1  && x > blockX && x < blockX + blockWidth && y > blockY && y < blockY + blockHeight) {
+        dy = -dy; //this Changes ball's vertical direction on collision
+        block.status = 0
+      }
+    });
+  });
+}
+
