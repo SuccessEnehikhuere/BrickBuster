@@ -10,6 +10,9 @@ let dx = 2
 let dy = -2
 //if dy is positive, the ball move downwards and if dx is negative, the ball moves to the left
 
+
+
+
 const controllerHeight = 15
 const controllerWidth = 100
 
@@ -30,6 +33,8 @@ let blockLeftOffset = 20
 const blockColumn = 5
 const blockRow = 3
 
+let score = 0;
+
 //this variable stores the creation of the 2d blocks using the array.from method
 const blocks = Array.from({ length: blockColumn }, () =>
   Array.from({ length: blockRow }, () => ({ x: 0, y: 0, status:1 }))
@@ -37,11 +42,10 @@ const blocks = Array.from({ length: blockColumn }, () =>
 
 document.addEventListener('keydown', keyDownHandler, false)
 document.addEventListener('keyup', KeyUpHandler, false)
+document.addEventListener('mousemove', mouseMoveHandler, false)
 
-// canvas.addEventListener('mousemove', mouseMoveHandler, false)
 
 function keyDownHandler(e) {
-  console.log('hello')
   if (e.key === 'Right' || e.key === 'ArrowRight') {
     rightPressed = true
   } else if (e.key === 'left' || e.key === 'ArrowLeft') {
@@ -54,6 +58,15 @@ function KeyUpHandler(e) {
     rightPressed = false
   } else if (e.key === 'left' || e.key === 'ArrowLeft') {
     leftPressed = false
+  }
+}
+
+function mouseMoveHandler(e) {
+  //The offsetLeft property is a standard DOM property that is available on HTML elements
+  //clientX represents the horizontal coordinate (X-coordinate) of the mouse pointer relative to the viewport at the moment when the event occurred.
+  const relativeX = e.clientX - canvas.offsetLeft
+  if (relativeX > 0 && relativeX < canvas.width) {
+    controllerX = relativeX - controllerWidth / 2
   }
 }
 
@@ -86,7 +99,6 @@ function createBlocks() {
 
   blocks.forEach((column, c) => {
     column.forEach((block, r) => {
-       console.log('Block status:', block.status)
       if (block.status === 1){
         const blockX = offsetX + c * (blockWidth + blockPadding) 
         const blockY = offsetY + r * (blockHeight + blockPadding) + blockTopOffset
@@ -102,10 +114,11 @@ function createBlocks() {
 
 function bounceBall() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
-  drawBall()
-  gameController()
-  createBlocks()
-  ballBlocksDetection()
+  drawBall();
+  gameController();
+  createBlocks();
+  ballBlocksDetection();
+  createScore();
 
   if (x + dx > canvas.width - radius || x + dx < radius) {
     dx = -dx
@@ -134,6 +147,12 @@ function bounceBall() {
   y += dy
 }
 
+function createScore (){
+  ctx.font = '16px Arial';
+  ctx.fillStyle = '#0ff';
+  ctx.fillText(`Score: ${score}`, 8, 20)
+}
+
 function playGameSound() {
   const gameSound = document.getElementById('gameSound')
   if (gameSound) {
@@ -156,25 +175,63 @@ if (startButton) {
 
 gameController()
 createBlocks()
+createScore()
 
 
+
+// function ballBlocksDetection() {
+//   const totalBlocksWidth = blockColumn * (blockWidth + blockPadding) - blockPadding;
+//   const offsetX = (canvas.width - totalBlocksWidth) / 2;
+//    const offsetY = blockTopOffset
+  
+//   blocks.forEach((column, c) => {
+//     column.forEach((block, r) => {
+//       const blockX = offsetX + c * (blockWidth + blockPadding);
+//       const blockY = offsetY + r * (blockHeight + blockPadding)
+      
+//       // Checking for collision with each block
+//       if (block.status === 1  && x > blockX && x < blockX + blockWidth && y > blockY && y < blockY + blockHeight) {
+//         dy = -dy; //this Changes ball's vertical direction on collision
+//         block.status = 0
+//       }
+//     });
+//   });
+// }
 
 function ballBlocksDetection() {
-  const totalBlocksWidth = blockColumn * (blockWidth + blockPadding) - blockPadding;
-  const offsetX = (canvas.width - totalBlocksWidth) / 2;
-   const offsetY = blockTopOffset
-  
+  const totalBlocksWidth =
+    blockColumn * (blockWidth + blockPadding) - blockPadding
+  const offsetX = (canvas.width - totalBlocksWidth) / 2
+  const offsetY = blockTopOffset
+
   blocks.forEach((column, c) => {
     column.forEach((block, r) => {
-      const blockX = offsetX + c * (blockWidth + blockPadding);
+      const blockX = offsetX + c * (blockWidth + blockPadding)
       const blockY = offsetY + r * (blockHeight + blockPadding)
-      
+
       // Checking for collision with each block
-      if (block.status ===1  && x > blockX && x < blockX + blockWidth && y > blockY && y < blockY + blockHeight) {
-        dy = -dy; //this Changes ball's vertical direction on collision
+      if (
+        block.status === 1 &&
+        x + radius > blockX &&
+        x - radius < blockX + blockWidth &&
+        y + radius > blockY &&
+        y - radius < blockY + blockHeight
+      ) {
+        // Update block status before changing ball's direction
         block.status = 0
+        dy = -dy // Change ball's vertical direction on collision
+        score ++;
+        if(score === column * block){
+          //display a winning modal here
+          alert(`you win!!🎉🏅. your score: ${score}`)
+          document.reload();
+          clearInterval(gameInterval)
+        }
       }
-    });
-  });
+    })
+  })
 }
+
+
+
 
