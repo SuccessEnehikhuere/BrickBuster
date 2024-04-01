@@ -1,29 +1,60 @@
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BrickBuster</title>
-  <link rel="stylesheet" href="index.css" >
-</head>
-<body>
-  <section class="gameField">
-    <canvas id="canvas" width="480" height="320" class="main"></canvas>
-    
-    <button id="startButton">start Game</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BrickBuster</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <main class="wrapper">
+      <canvas id="canvas" width="480" height="380" class="main"></canvas>
+      <div class="buttons-wrapper">
+        <!-- <button id="levels">
+           <img src="Images/SOUND_ON.png" alt="highest score" Class="sound-on"/>
+           <img src="Images/SOUND_OFF.png" alt="highest score" Class="sound-on"/>
+        </button> -->
+        <button id="startButton">play</button>
+        <button id="gameLevel">
+          <img src="Images/Icon (1).svg" alt="levels" />
+        </button>
+      </div>
 
+      <div class="sound">
+        <img src="images/SOUND_ON.png" alt="" id="sound" />
+      </div>
 
-    <audio id='gameSound' src="/audio/262767__b_lamerichs__short-loops-31-01-2015-c-5.mp3">
-      Your browser does not support the audio element.
-    </audio>
-    <div class="modal hide-modal">
-      <button class="close-modal">close</button>
+      <!-- <div class="modal hide-modal">
+        <button class="close-modal">close</button>
+      </div> -->
+
+      <div class="display-level hide-level">
+        <div class="game-levels">
+          <div class="heading">
+            <h2 class="title">Pick a level</h2>
+            <button id="closeButton">
+              <img src="Images/Button_Back.svg" alt="close-button" />
+            </button>
+          </div>
+
+          <div class="levels">
+            <button id="easyButton">Easy</button>
+            <button id="mediumButton">Medium</button>
+            <button id="hardButton">Hard</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="modal hidden">
+      <button class="close-modal">&times;</button>
+      <h2 class="text"></h2>
+      <div class="modal-buttons">
+        <button class="score-btn">play again</button>
+      </div>
     </div>
 
+    <div class="overlay hidden"></div>
 
-  </section>
-
-
-
-  <script src="script.js"></script>
-</body>
+    <script src="game.js"></script>
+  </body>
 </html>
