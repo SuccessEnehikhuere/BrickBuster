@@ -4,34 +4,208 @@
   
 }
 
+body{
+  position: relative;
+}
+
+
 .main{
-  background-color:#121212;
+  background-color:#2F3B52;
   margin: 0 auto;
   display: block;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+
+.wrapper{
+  height: 100%;
+  position: relative;
+  /* width:100%;  */
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  background-color: #647188;
+}
+
+.buttons-wrapper{
+  background-color: #2F3B52;
+  display: flex;
+  width: 480px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding-top: 5rem;
+  justify-content: space-evenly;
 }
 
 #startButton{
-  display: block;
-  margin: 0 auto;  
-  margin-top: 2px;
+  background-color: #39805B;
+  color: #3EB377;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+  padding: 12px 28px;
+  margin-bottom: 5px;
 }
 
 
-.modal{
-  background-color: aliceblue;
-  height: 400px;
-  width: 100%;
+#gameLevel{
+  width: 30px;
+  background-color: #147BA5;
+   border-radius: 5px;
+   padding: 10px 35px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 5px;
+   border: none;
+}
+
+.display-level{
+  color: aliceblue;
+  height: 520px;
+  width: 480px;
   position: absolute;
   top:0;
+  background-color:#2F3B52;
+  margin: 0 auto;
+  display: block;
+  border-radius: 5px;
+
 }
 
-.hide-modal {
+.hide-level{
+  display:none ;
+}
+
+
+.heading{
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 10px;
+}
+
+.title{
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#closeButton{
+ background: transparent;
+ border: none;
+}
+
+.levels{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 35px;
+}
+
+#easyButton,
+#mediumButton,
+#hardButton {
+  width: 60%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: bold;
+  color: aliceblue;
+  border: none;
+  border-radius: 10px;
+}
+
+#easyButton{
+  background-color: #47967A;
+}
+
+#mediumButton{
+background-color: #F09F61;
+}
+
+#hardButton {
+background-color: #c63120;
+}
+
+.modal{
+  position: absolute;
+  width: 50%;
+  top:40%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  background-color: #3E4C65;
+  width:320px;
+  height:318px;
+  border-radius: 25px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+  z-index: 10;
+ 
+}
+
+.text{
+  font-size: 2rem;
+  margin-top: 2.5rem;
+  font-weight: bold;
+  font-family:fantasy;
+  color: white;
+  text-align: center;
+}
+
+.close-modal{
+  background: none;
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 2rem;
+  font-size: 4rem;
+  color: white;
+  cursor: pointer;
+  border: none;
+  background: none;
+
+}
+.modal-buttons{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-top: 18px;
+}
+.newGame-btn,
+.score-btn,
+.continue-btn{
+  width:60%;
+  border-radius: 10px;
+  border: none;
+  text-transform: capitalize;
+  padding-top:10px;
+  padding-bottom:10px;
+  font-weight: bold;
+  color: #0F7098;
+  background-color: #17A4DD;
+  margin-top: 5px;
+}
+
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+
+.hidden{
   display: none;
 }
 
-.gameField{
-  position: relative;
-  background-color: rgb(181, 137, 181);
-  height: 100%;
-  width:100%;  
+.sound{
+  
 }
