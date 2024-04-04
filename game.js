@@ -19,7 +19,6 @@ win.src = 'audio/win.mp3'
 const blockHit = new Audio()
 blockHit.src = 'audio/brick_hit.mp3'
 
-
 //DOM EEMENTS
 const gameLevel = document.getElementById('gameLevel')
 const easyButton = document.querySelector('#easyButton')
@@ -27,16 +26,14 @@ const mediumButton = document.querySelector('#mediumButton')
 const hardButton = document.querySelector('#hardButton')
 const modal = document.querySelector('.modal')
 const overlay = document.querySelector('.overlay')
-const closeModal = document.querySelector('.close-modal')
-const text = document.querySelector('.text');
-const startButton = document.getElementById('startButton');
+const text = document.querySelector('.text')
+const startButton = document.getElementById('startButton')
 
+// VALUES
+const radius = 10
+let x = canvas.width / 2
+let y = canvas.height - 30
 
-const radius = 10;
-let x = canvas.width / 2;
-let y = canvas.height - 30;
-// let dx = 3
-// let dy = -3
 
 //if dy is positive, the ball move downwards and if dx is negative, the ball moves to the left
 
@@ -51,7 +48,7 @@ let rightPressed = false
 let gameOver = false
 let gameInterval
 
-//variables for the blocks
+//VARIABLES FOR THE GAME BLOCKS
 let blockHeight = 20
 let blockWidth = 70
 let blockPadding = 3
@@ -83,8 +80,40 @@ const blocks = Array.from({ length: blockColumn }, () =>
 document.addEventListener('keydown', keyDownHandler, false)
 document.addEventListener('keyup', KeyUpHandler, false)
 document.addEventListener('mousemove', mouseMoveHandler, false)
+document.addEventListener('touchstart', touchStartHandler, false)
+document.addEventListener('touchmove', touchMoveHandler, false)
+document.addEventListener('touchend', touchEndHandler, false)
 
-getSpeedFromStorage()
+let touchX = null
+
+getSpeedFromStorage();
+
+function touchStartHandler(e) {
+  e.preventDefault()
+  const touch = e.touches[0]
+  touchX = touch.clientX
+}
+
+function touchMoveHandler(e) {
+  e.preventDefault()
+  if (!touchX) return
+  const touch = e.touches[0]
+  const relativeX = touch.clientX - touchX
+  touchX = touch.clientX
+  moveController(relativeX)
+}
+
+function touchEndHandler(e) {
+  e.preventDefault()
+  touchX = null
+}
+
+function moveController(relativeX) {
+  const newX = controllerX + relativeX
+  if (newX > 0 && newX < canvas.width - controllerWidth) {
+    controllerX = newX
+  }
+}
 
 function keyDownHandler(e) {
   if (e.key === 'Right' || e.key === 'ArrowRight') {
@@ -111,7 +140,7 @@ function mouseMoveHandler(e) {
   }
 }
 
-// Function to set speed based on the selected level
+// SET SPEED BASED ON SELECTED LEVEL
 function setSpeed(level) {
   const speed = speeds[level]
   if (speed) {
@@ -190,17 +219,17 @@ function createBlocks() {
 function bounceBall() {
   if (gameOver) {
     // clearInterval(gameInterval);
-    enableStartButton();
-    return;
+    enableStartButton()
+    return
   }
 
   ctx.clearRect(0, 0, canvas.width, canvas.height)
-  drawBall()
-  gameController()
-  createBlocks()
-  createScore()
-  gameLives()
-  ballBlocksDetection()
+  drawBall();
+  gameController();
+  createBlocks();
+  createScore();
+  gameLives();
+  ballBlocksDetection();
 
   if (x + dx > canvas.width - radius || x + dx < radius) {
     dx = -dx
@@ -218,20 +247,18 @@ function bounceBall() {
       dy = -dy
       controllerHit.play()
     } else {
-      lives--;
-       lifeLost.play();
+      lives--
+      lifeLost.play()
       if (!lives) {
         // alert('Game Over');
         // document.location.reload();
 
-         gameOver = true;
-         modal.classList.remove('hidden')
-         overlay.classList.remove('hidden')
-         console.log(text)
-         text.textContent = `you lose!😭😭
-          your score: ${score}`
-         console.log('Game won. Score:', score);
-
+        gameOver = true;
+        modal.classList.remove('hidden');
+        overlay.classList.remove('hidden');
+        text.innerText = `you lose!😭😭 \nYour score: ${score}`
+         text.style.color = '#cf4a3b'
+       
       } else {
         // Reset the ball position
         x = canvas.width / 2
@@ -254,7 +281,7 @@ function bounceBall() {
     dy = -dy
   }
 
-  // Move controller
+  // Move gameController
   if (rightPressed && controllerX < canvas.width - controllerWidth) {
     controllerX += 7
   } else if (leftPressed && controllerX > 0) {
@@ -267,7 +294,6 @@ function bounceBall() {
   gameInterval = requestAnimationFrame(bounceBall)
 }
 
-
 function createScore() {
   ctx.font = '18px Germania one'
   ctx.fillStyle = '#F0F8FF'
@@ -279,26 +305,6 @@ function gameLives() {
   ctx.fillStyle = '#F0F8FF'
   ctx.fillText(`Lives: ${lives}`, canvas.width - 65, 20)
 }
-
-// function playGameSound() {
-//   const gameSound = document.getElementById('gameSound')
-//   if (gameSound) {
-//     gameSound.play()
-//   }
-// }
-
-
-
-// const startButton = document.getElementById('startButton')
-// if (startButton) {
-//   startButton.addEventListener('click', () => {
-//     gameInterval = requestAnimationFrame(bounceBall)
-//     playGameSound()
-//     startButton.disabled = true
-//   })
-// }
-
-
 
 function ballBlocksDetection() {
   const totalBlocksWidth =
@@ -319,10 +325,9 @@ function ballBlocksDetection() {
         y + radius > blockY &&
         y - radius < blockY + blockHeight
       ) {
-      
         block.status = 0
         dy = -dy // Changes ball's vertical direction on collision
-        blockHit.play();
+        blockHit.play()
         // this adjusts score based on speed level
         let scoreIncrement = 2
 
@@ -350,21 +355,15 @@ function ballBlocksDetection() {
         if (score >= targetScore) {
           gameOver = true;
           win.play();
-          // clearInterval(gameInterval);
-          modal.classList.remove('hidden');
-          overlay.classList.remove('hidden');
-          console.log(text);
-          text.textContent = `you win!!🎉🏅. your score: ${score}`
-          console.log('Game won. Score:', score)
-          // document.location.reload()
-          // return;
+          modal.classList.remove('hidden')
+          overlay.classList.remove('hidden')
+          text.innerText = `you win!!🎉🏅 \nyour score: ${score}`
+           text.style.color = '#3EB377';
         }
       }
     })
   })
 }
-
-
 
 function getSpeedFromStorage() {
   const savedSpeed = localStorage.getItem('currentSpeed')
@@ -402,48 +401,62 @@ function initializeGame() {
   gameLives()
 }
 
+//ENABLE AND DISABLE START BUTTON
 function disableStartButton() {
   startButton.disabled = true
 }
 
 function enableStartButton() {
-  startButton.disabled = false;
+  startButton.disabled = false
 }
 
+//CLOSE MODAL
+const closeModal = document.querySelector('.close-modal')
+closeModal.addEventListener('click', restartGame)
 
-closeModal.addEventListener('click', function () {
+//START GAME
+startButton.addEventListener('click', () => {
   modal.classList.add('hidden')
   overlay.classList.add('hidden')
-  // gameOver = false;
-  // score = 0;
-  // lives = 3;
-  // cancelAnimationFrame(gameInterval);
-  initializeGame();
-  enableStartButton();
+  gameOver = false
+  gameInterval = requestAnimationFrame(bounceBall)
+  disableStartButton()
 })
-
-// startButton.addEventListener('click', function () {
-//   modal.classList.add('hidden')
-//   gameOver = false;
-//  gameInterval = requestAnimationFrame(bounceBall);
-//   playGameSound()
-//   startButton.disabled = true
-// })
-
-
-  startButton.addEventListener('click', () => {
-    modal.classList.add('hidden');
-    overlay.classList.add('hidden');
-    gameOver=false;
-    gameInterval = requestAnimationFrame(bounceBall)
-    // playGameSound()
-    disableStartButton();
-  })
-
 
 gameController()
 createBlocks()
 createScore()
 gameLives()
-initializeGame();
+initializeGame()
 
+//GAME-SOUND
+const gameSoundElement = document.querySelector('.sound-img')
+gameSoundElement.addEventListener('click', gameSoundManager)
+
+function gameSoundManager() {
+  //Toggle gameSound Image
+  const gameSoundSrc = gameSoundElement.getAttribute('src')
+  const gameSoundImg =
+    gameSoundSrc === 'images/SOUND_ON.png'
+      ? 'images/SOUND_OFF.png'
+      : 'images/SOUND_ON.png'
+  gameSoundElement.setAttribute('src', gameSoundImg)
+
+  //toggle all game sounds
+  wallHit.muted = wallHit.muted ? false : true
+  blockHit.muted = blockHit.muted ? false : true
+  controllerHit.muted = controllerHit.muted ? false : true
+  win.muted = win.muted ? false : true
+  lifeLost.muted = lifeLost.muted ? false : true
+}
+
+//RESTARTING THE GAME
+const restartGameElement = document.querySelector('.reset-btn')
+restartGameElement.addEventListener('click', restartGame)
+
+function restartGame() {
+  modal.classList.add('hidden')
+  overlay.classList.add('hidden')
+  initializeGame();
+  enableStartButton();
+}
