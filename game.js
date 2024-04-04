@@ -80,40 +80,41 @@ const blocks = Array.from({ length: blockColumn }, () =>
 document.addEventListener('keydown', keyDownHandler, false)
 document.addEventListener('keyup', KeyUpHandler, false)
 document.addEventListener('mousemove', mouseMoveHandler, false)
-document.addEventListener('touchstart', touchStartHandler, false)
-document.addEventListener('touchmove', touchMoveHandler, false)
-document.addEventListener('touchend', touchEndHandler, false)
+
+// document.addEventListener('touchstart', touchStartHandler, false)
+// document.addEventListener('touchmove', touchMoveHandler, false)
+// document.addEventListener('touchend', touchEndHandler, false)
 
 let touchX = null
 
 getSpeedFromStorage();
 
-function touchStartHandler(e) {
-  e.preventDefault()
-  const touch = e.touches[0]
-  touchX = touch.clientX
-}
+// function touchStartHandler(e) {
+//   e.preventDefault()
+//   const touch = e.touches[0]
+//   touchX = touch.clientX
+// }
 
-function touchMoveHandler(e) {
-  e.preventDefault()
-  if (!touchX) return
-  const touch = e.touches[0]
-  const relativeX = touch.clientX - touchX
-  touchX = touch.clientX
-  moveController(relativeX)
-}
+// function touchMoveHandler(e) {
+//   e.preventDefault()
+//   if (!touchX) return
+//   const touch = e.touches[0]
+//   const relativeX = touch.clientX - touchX
+//   touchX = touch.clientX
+//   moveController(relativeX)
+// }
 
-function touchEndHandler(e) {
-  e.preventDefault()
-  touchX = null
-}
+// function touchEndHandler(e) {
+//   e.preventDefault()
+//   touchX = null
+// }
 
-function moveController(relativeX) {
-  const newX = controllerX + relativeX
-  if (newX > 0 && newX < canvas.width - controllerWidth) {
-    controllerX = newX
-  }
-}
+// function moveController(relativeX) {
+//   const newX = controllerX + relativeX
+//   if (newX > 0 && newX < canvas.width - controllerWidth) {
+//     controllerX = newX
+//   }
+// }
 
 function keyDownHandler(e) {
   if (e.key === 'Right' || e.key === 'ArrowRight') {
