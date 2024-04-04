@@ -1,197 +1,222 @@
-*{
- padding: 0;
- margin: 0;
-  
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-body{
+body {
   position: relative;
-}
-
-
-.main{
-  background-color:#2F3B52;
-  margin: 0 auto;
-  display: block;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-
-
-.wrapper{
-  height: 100%;
-  position: relative;
-  /* width:100%;  */
-  display: flex;
-  /* justify-content: center; */
-  align-items: center;
-  flex-direction: column;
   background-color: #647188;
 }
 
-.buttons-wrapper{
-  background-color: #2F3B52;
+.main {
+  background-color: #2f3b52;
+  margin: 0 auto;
   display: flex;
-  width: 480px;
+  justify-content: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width:300px;
+}
+
+
+.buttons{
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+  
+}
+
+.buttons-wrapper {
+  background-color: #2f3b52;
+  display: flex;
+  width: 300px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   padding-top: 5rem;
   justify-content: space-evenly;
 }
 
-#startButton{
-  background-color: #39805B;
-  color: #3EB377;
+#startButton {
+  background-color: #39805b;
+  color: #3eb377;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 5px;
   border: none;
-  padding: 12px 28px;
+  padding: 10px 12px;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
-
-#gameLevel{
-  width: 30px;
-  background-color: #147BA5;
-   border-radius: 5px;
-   padding: 10px 35px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin-bottom: 5px;
-   border: none;
-}
-
-.display-level{
-  color: aliceblue;
-  height: 520px;
-  width: 480px;
-  position: absolute;
-  top:0;
-  background-color:#2F3B52;
-  margin: 0 auto;
-  display: block;
+#gameLevel,
+#gameSound {
+  width: 8px;
+  background-color: #147ba5;
   border-radius: 5px;
-
+  padding: 6px 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  border: none;
+  cursor: pointer;
 }
 
-.hide-level{
-  display:none ;
+#gameSound {
+  background-color: #4d5a70;
+}
+
+.sound-img,
+.level-img {
+  width: 22px;
+  height: 22px;
+}
+
+.display-level {
+  color: aliceblue;
+  width:300px;
+  height:360px;
+  position: absolute;
+  top: 0;
+  right:0;
+  left:0;
+  /* background-color: white; */
+  background-color: #2f3b52;
+  margin: 0 auto;
+  border-radius: 5px;
 }
 
 
-.heading{
+.hide-level {
+  display: none;
+}
+
+.heading {
   display: flex;
   justify-content: space-evenly;
-  padding-top: 10px;
+  padding-top: 30px;
+  align-items: center;
 }
 
-.title{
-  font-size: 30px;
+.title {
+  font-size: 20px;
   font-weight: bold;
 }
 
-#closeButton{
- background: transparent;
- border: none;
+#closeButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
 }
 
-.levels{
+.levels {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 35px;
+  padding-top: 4rem;
+  
 }
+
 
 #easyButton,
 #mediumButton,
 #hardButton {
-  width: 60%;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  width: 70%;
+  padding-top: 8px;
+  padding-bottom: 8px;
   margin-top: 10px;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: aliceblue;
   border: none;
   border-radius: 10px;
+  cursor: pointer;
 }
 
-#easyButton{
-  background-color: #47967A;
+#easyButton {
+  background-color: #39805B;
+}
+#easyButton:hover{
+   background-color: #47967a;
 }
 
-#mediumButton{
-background-color: #F09F61;
+#mediumButton {
+  background-color: #f09f61;
+}
+
+#mediumButton:hover{
+  background-color: #FFBC88;
 }
 
 #hardButton {
-background-color: #c63120;
+  background-color: #c63120;
 }
 
-.modal{
+#hardButton:hover{
+  background-color: #cf4a3b;
+}
+
+.modal {
   position: absolute;
-  width: 50%;
-  top:40%;
-  left:50%;
+  top: 30%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #3E4C65;
-  width:320px;
-  height:318px;
+  background-color: #3e4c65;
+  width: 270px;
+  height: 260px;
   border-radius: 25px;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
   z-index: 10;
- 
 }
 
-.text{
-  font-size: 2rem;
-  margin-top: 2.5rem;
+.text {
+  font-size: 1.5rem;
+  margin-top: 3rem;
   font-weight: bold;
-  font-family:fantasy;
+  font-family: "Pixelify Sans", sans-serif;
   color: white;
   text-align: center;
+  text-transform: uppercase;
 }
 
-.close-modal{
+.close-modal {
   background: none;
   border: none;
   position: absolute;
   top: 0;
   right: 2rem;
-  font-size: 4rem;
+  font-size: 2rem;
   color: white;
   cursor: pointer;
   border: none;
   background: none;
+}
+.modal-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 18px;
+}
 
-}
-.modal-buttons{
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   margin-top: 18px;
-}
-.newGame-btn,
-.score-btn,
-.continue-btn{
-  width:60%;
+.reset-btn {
+  width: 60%;
   border-radius: 10px;
   border: none;
   text-transform: capitalize;
-  padding-top:10px;
-  padding-bottom:10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   font-weight: bold;
-  color: #0F7098;
-  background-color: #17A4DD;
-  margin-top: 5px;
+  color: #0f7098;
+  background-color: #17a4dd;
+  margin-top: 25px;
 }
 
-.overlay{
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -202,10 +227,64 @@ background-color: #c63120;
   z-index: 5;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.sound{
+
+@media screen and (min-width: 480px){
+  .main{
+    width:480px;
+  }
+  .buttons-wrapper{
+    width: 480px;
+  }
+  #gameLevel,
+  #gameSound{
+  width: 30px;
+  padding: 10px 35px;
   
+}
+#startButton{
+  padding: 12px 28px;
+  font-size: 20px;
+}
+
+.display-level{
+  height: 520px;
+  width: 480px;
+}
+
+
+.sound-img,
+.level-img {
+  width: 30px;
+  height: 30px;
+}
+.title {
+  font-size: 30px;
+}
+
+#easyButton,
+#mediumButton,
+#hardButton {
+  padding-top: 10px;
+  padding-bottom: 10px;
+   font-size: 16px;
+}
+.modal {
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  height: 320px;
+}
+
+.text {
+  font-size: 2rem;
+}
+.close-modal {
+  font-size: 3rem;  
+}
+
 }
