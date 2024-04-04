@@ -4,52 +4,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BrickBuster</title>
     <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik+Pixels&display=swap" rel="stylesheet">
   </head>
   <body>
-    <main class="wrapper">
-      <canvas id="canvas" width="480" height="380" class="main"></canvas>
+    <canvas id="canvas" width="480" height="380" class="main"></canvas>
+    <div class="buttons">
       <div class="buttons-wrapper">
-        <!-- <button id="levels">
-           <img src="Images/SOUND_ON.png" alt="highest score" Class="sound-on"/>
-           <img src="Images/SOUND_OFF.png" alt="highest score" Class="sound-on"/>
-        </button> -->
         <button id="startButton">play</button>
         <button id="gameLevel">
-          <img src="Images/Icon (1).svg" alt="levels" />
+          <img src="Images/Icon (1).svg" alt="levels" class="level-img" />
+        </button>
+        <button id="gameSound">
+          <img
+            src="images/SOUND_ON.png"
+            alt="game-sound"
+            class="sound-img"
+          />
         </button>
       </div>
+    </div>
 
-      <div class="sound">
-        <img src="images/SOUND_ON.png" alt="" id="sound" />
-      </div>
+    <div class="display-level hide-level">
+      <div class="game-levels">
+        <div class="heading">
+          <h2 class="title">Pick a level</h2>
+          <button id="closeButton">
+            <img src="Images/Button_Back.svg" alt="close-button" />
+          </button>
+        </div>
 
-      <!-- <div class="modal hide-modal">
-        <button class="close-modal">close</button>
-      </div> -->
-
-      <div class="display-level hide-level">
-        <div class="game-levels">
-          <div class="heading">
-            <h2 class="title">Pick a level</h2>
-            <button id="closeButton">
-              <img src="Images/Button_Back.svg" alt="close-button" />
-            </button>
-          </div>
-
-          <div class="levels">
-            <button id="easyButton">Easy</button>
-            <button id="mediumButton">Medium</button>
-            <button id="hardButton">Hard</button>
-          </div>
+        <div class="levels">
+          <button id="easyButton">Easy</button>
+          <button id="mediumButton">Medium</button>
+          <button id="hardButton">Hard</button>
         </div>
       </div>
-    </main>
+    </div>
 
     <div class="modal hidden">
       <button class="close-modal">&times;</button>
       <h2 class="text"></h2>
-      <div class="modal-buttons">
-        <button class="score-btn">play again</button>
+      <div class="modal-button">
+        <button class="reset-btn">play again</button>
       </div>
     </div>
 
